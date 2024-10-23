@@ -6,7 +6,7 @@ import prisma from '../db/prisma';
 
 interface DecodedToken extends JwtPayload {
   userId: string;
-}
+}// Define the structure of the decoded token
 
 declare global {
   namespace Express {
@@ -36,7 +36,7 @@ const protectRoute = async (req: Request, res: Response, next: NextFunction): Pr
     const user = await prisma.user.findUnique({ 
       where: { id: decoded.userId } , 
       select: { id: true, username: true, fullname: true, profilePic: true}
-    }); // Find the user by the decoded user id
+    }); // Find the user by the decoded user id with select fields
 
     if (!user) {
       res.status(401).json({ error: "User not found!" });
@@ -45,7 +45,7 @@ const protectRoute = async (req: Request, res: Response, next: NextFunction): Pr
 
     req.user = user; // Set the user in the request object
 
-  next(); // Call the next middleware
+    next(); // Call the next middleware
 
   } catch (error: any) {
     console.log("Error in protectRoute middleware.", error.message);

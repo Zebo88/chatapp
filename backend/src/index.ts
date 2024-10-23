@@ -18,3 +18,5 @@ app.listen(3000, () => {
   console.log('\nServer is running on port 3000');
 });
 
+// ToDo: add socket.io for real-time messaging
+// ToDo: COnfigure this server for deploment
